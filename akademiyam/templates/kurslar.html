@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kurslar | BAKHADIROVICH TECH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #000; color: #fff; }
+        nav { padding: 25px 60px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; background: rgba(0, 0, 0, 0.9); }
+        nav .logo { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 4px; }
+        nav .logo span { color: #00f5d4; }
+        .menu a { color: #8892b0; text-decoration: none; margin-left: 40px; font-size: 13px; text-transform: uppercase; font-weight: 600; transition: 0.3s; }
+        .menu a:hover, .menu a.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        
+        .container { max-width: 1200px; margin: 80px auto; text-align: center; }
+        h1 { font-size: 45px; text-transform: uppercase; color: #00f5d4; margin-bottom: 60px; letter-spacing: 1px;}
+        
+        .grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .card { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 10px; padding: 40px 30px; width: 330px; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: #00f5d4; transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,245,212,0.1); }
+        .card h3 { font-size: 22px; color: #fff; margin-top: 0; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px;}
+        .card p { color: #8892b0; font-size: 14px; line-height: 1.7; min-height: 80px;}
+        .price { font-size: 30px; color: #fff; font-weight: 900; margin: 25px 0; }
+        
+        .btn-buy { display: block; background: transparent; border: 1px solid #00f5d4; color: #00f5d4; text-align: center; padding: 15px; text-decoration: none; font-weight: bold; text-transform: uppercase; border-radius: 4px; transition: 0.3s; letter-spacing: 1px;}
+        .btn-buy:hover { background: #00f5d4; color: #000; box-shadow: 0 0 15px rgba(0,245,212,0.4); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">BAKHADIROVICH <span>TECH</span></a>
+        <div class="menu">
+            <a href="/">Asosiy</a>
+            <a href="/kurslar/" class="active">Kurslar</a>
+            <a href="/biz-haqimizda/">Biz Haqimizda</a>
+            <a href="/aloqa/">Aloqa</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Premium Ta'lim Dasturlari</h1>
+        <div class="grid">
+            {% if kurslar %}
+                {% for kurs in kurslar %}
+                <div class="card">
+                    <h3>{{ kurs.nomi }}</h3>
+                    <p>{{ kurs.tavsif }}</p>
+                    <div class="price">{{ kurs.narxi }} UZS</div>
+                    <a href="https://t.me/muwahhid_27?text=Salom! Men '{{ kurs.nomi }}' kursini band qilmoqchiman." target="_blank" class="btn-buy">O'rinni Band Qilish</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="color:#8892b0;">Hozircha kurslar yo'q. Admin paneldan qo'shing!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

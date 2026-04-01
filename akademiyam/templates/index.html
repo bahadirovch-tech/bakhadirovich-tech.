@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAKHADIROVICH TECH SYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        
+        body { 
+            background-color: #0b0f19; color: #ffffff; 
+            min-height: 100vh; display: flex; flex-direction: column; 
+            transition: 0.5s ease; overflow-x: hidden;
+        }
+
+        /* Navigatsiya */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 25px 60px; border-bottom: 1px solid rgba(0, 229, 255, 0.15); 
+            background: rgba(11, 15, 25, 0.95); position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo-area { display: flex; flex-direction: column; gap: 5px; }
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+        .logo span { color: #00e5ff; }
+        .sys-id { font-family: monospace; font-size: 0.6rem; color: #00e5ff; opacity: 0.5; letter-spacing: 1px; }
+
+        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
+        nav ul li a { 
+            text-decoration: none; color: #8b949e; font-size: 0.75rem; 
+            font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; 
+        }
+        nav ul li a:hover, .active-link { color: #00e5ff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
+
+        /* Sahifalar */
+        .page { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; flex-grow: 1; animation: fadeIn 0.5s ease; }
+        .page.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 15px; letter-spacing: -2px; }
+        .highlight { color: #00e5ff; }
+        .slogan { color: #8b949e; font-size: 0.85rem; font-weight: 200; max-width: 600px; margin-bottom: 40px; line-height: 1.6; letter-spacing: 4px; text-transform: uppercase; }
+
+        /* Tugmalar */
+        .cta-button { 
+            position: relative; padding: 14px 40px; background: transparent; color: #00e5ff; 
+            border: 1px solid #00e5ff; font-weight: 700; border-radius: 4px; cursor: pointer; 
+            text-decoration: none; font-size: 0.8rem; text-transform: uppercase; 
+            overflow: hidden; transition: 0.4s; z-index: 1;
+        }
+        .cta-button:hover { color: #0b0f19; background: #00e5ff; box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
+
+        /* Kartochkalar & Haqimda bo'limi detallari */
+        .course-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 1100px; }
+        .course-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.1); padding: 30px; border-radius: 12px; width: 300px; text-align: left; transition: 0.3s; }
+        .course-card:hover { border-color: #00e5ff; transform: translateY(-5px); }
+        .course-card h3 { color: #00e5ff; margin-bottom: 15px; font-size: 1.1rem; }
+
+        /* Skill progress bars */
+        .skill-bar-container { width: 100%; margin: 10px 0; text-align: left; }
+        .skill-name { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .skill-line { width: 100%; height: 4px; background: rgba(255,255,255,0.05); margin-top: 5px; border-radius: 2px; position: relative; overflow: hidden; }
+        .skill-progress { height: 100%; background: #00e5ff; box-shadow: 0 0 10px #00e5ff; border-radius: 2px; transition: 1s ease-out; }
+
+        input { width: 100%; padding: 12px; margin-bottom: 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; color: #fff; font-size: 0.8rem; }
+        
+        .terminal-box { background: #000; border: 1px solid #00e5ff; padding: 30px; border-radius: 8px; text-align: left; font-family: monospace; color: #00e5ff; width: 100%; max-width: 550px; line-height: 1.6; }
+        .live-status { position: fixed; bottom: 20px; left: 20px; background: #000; border: 1px solid #00e5ff; color: #00e5ff; padding: 8px 15px; font-family: monospace; font-size: 10px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo">BAKHADIROVICH<span>.</span></div>
+            <div class="sys-id" id="sys-id">SYSTEM-ID: BT-772 / LVL: GOD</div>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a onclick="openRoom('system', this)" class="nav-link active-link">TIZIM</a></li>
+                <li><a onclick="openRoom('matrix', this)" class="nav-link">MATRIX</a></li>
+                <li><a onclick="openRoom('about', this)" class="nav-link">HAQIMDA</a></li>
+                <li><a onclick="openRoom('signal', this)" class="nav-link">SIGNAL</a></li>
+                <li><a href="https://t.me/bakhadirovch_dev" target="_blank" style="color: #00e5ff; border: 1px solid #00e5ff; padding: 5px 12px; border-radius: 4px; font-size: 0.7rem;">DIRECT</a></li>
+                <li><button onclick="toggleMode()" style="background:none; border:1px solid #333; color:#8b949e; cursor:pointer; padding:5px 8px; border-radius:4px; font-size: 0.6rem;">MODE</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="system" class="page active">
+        <h1>BAKHADIROVICH <br> <span class="highlight">TECH SYSTEM</span></h1>
+        <p class="slogan">Inson miyasi va kodning uyg'unligi. Biz qayta dasturlaymiz.</p>
+        <button onclick="openRoom('matrix', document.querySelectorAll('.nav-link')[1])" class="cta-button">MATRIXGA KIRISH</button>
+    </main>
+
+    <main id="matrix" class="page">
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">MATRIX <span class="highlight">NODES</span></h2>
+        <div class="course-grid">
+            {% for kurs in kurslar %}
+            <div class="course-card">
+                <h3>{{ kurs.nomi }}</h3>
+                <p style="font-size: 0.8rem; color: #8b949e; margin-bottom: 20px;">{{ kurs.tavsifi }}</p>
+                <form action="{% url 'sotib_olish' kurs.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="ism" placeholder="Mijoz ismi" required>
+                    <input type="text" name="tel" placeholder="+998" required>
+                    <button type="submit" class="cta-button" style="width: 100%;">BUYURTMA BERISH</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <main id="about" class="page">
+        <h2 style="font-size: 2.5rem; margin-bottom: 30px;">HAQIMDA <span class="highlight">IDENTIFIKATSIYA</span></h2>
+        <div class="terminal-box" style="width: 100%; max-width: 700px;">
+            <p style="color: #00e5ff; border-bottom: 1px solid rgba(0,229,255,0.2); padding-bottom: 10px; margin-bottom: 15px;">IDENT-LOG: OTABEK (BAKHADIROVICH)</p>
+            <p>> <span style="color: #8b949e;">LOKATSIYA:</span> Yunusobod, Toshkent</p>
+            <p>> <span style="color: #8b949e;">STATUS:</span> Toshkent Axborot Texnologiyalari Universiteti (TUIT) talabasi</p>
+            <p>> <span style="color: #8b949e;">KASB:</span> Software Engineer & IT Blogger</p>
+            <p>> <span style="color: #8b949e;">FAOLIYAT:</span> Veb-dasturlash (Django), C++ va Telegram bot arxitekturasi bo'yicha mutaxassis.</p>
+            <p style="margin-top: 15px; line-height: 1.4;">Men shunchaki kod yozmayman, men kelajak tizimlarini yarataman. Maqsadim — O'zbekistonda IT ta'limini "God Mode" darajasiga olib chiqish va har bir o'quvchini haqiqiy muhandis qilib tayyorlash.</p>
+            
+            <div style="margin-top: 20px;">
+                <p style="font-size: 0.7rem; color: #00e5ff;">TECH-SKILLS STACK:</p>
+                <div class="skill-bar-container">
+                    <div class="skill-name"><span>Python / Django</span><span>95%</span></div>
+                    <div class="skill-line"><div class="skill-progress" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-name"><span>C++ / Algoritmlar</span><span>85%</span></div>
+                    <div class="skill-line"><div class="skill-progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-name"><span>Telegram Bot API</span><span>90%</span></div>
+                    <div class="skill-line"><div class="skill-progress" style="width: 90%;"></div></div>
+                </div>
+            </div>
+        </div>
+        <a href="https://t.me/bakhadirovch_dev" target="_blank" class="cta-button" style="margin-top: 30px;">KIBER-KANALGA O'TISH</a>
+    </main>
+
+    <main id="signal" class="page">
+        <h2 style="margin-bottom: 30px;">TIZIM STATUSI</h2>
+        <div class="terminal-box">
+            > CORE: <span style="color: #0f0;">ONLINE</span><br>
+            > UPTIME: <span style="color: #0f0;" id="uptime">0s</span><br>
+            > SECURITY: <span style="color: #0f0;">FAOL</span><br>
+            > DATABASE: <span style="color: #0f0;">CONNECTED</span><br>
+            > _
+        </div>
+    </main>
+
+    <div class="live-status" id="live-text">> System Stable</div>
+
+    <script>
+        function openRoom(roomId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+            document.getElementById(roomId).classList.add('active');
+            if(element) element.classList.add('active-link');
+        }
+
+        function toggleMode() {
+            document.body.style.filter = document.body.style.filter === 'invert(1)' ? 'none' : 'invert(1)';
+        }
+
+        let up = 0;
+        setInterval(() => {
+            up++;
+            if(document.getElementById('uptime')) document.getElementById('uptime').innerText = up + 's';
+            
+            const codes = ["GOD", "ROOT", "USER", "ADMIN"];
+            document.getElementById('sys-id').innerText = `SYSTEM-ID: BT-${Math.floor(Math.random()*900+100)} / LVL: ${codes[Math.floor(Math.random()*4)]}`;
+        }, 3000);
+
+        const statusArr = ["> System Stable", "> Data Encrypted", "> Network Secure"];
+        let i = 0;
+        setInterval(() => {
+            document.getElementById('live-text').innerText = statusArr[i % statusArr.length];
+            i++;
+        }, 4000);
+    </script>
+</body>
+</html>
