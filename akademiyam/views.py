@@ -1,28 +1,35 @@
 from django.shortcuts import render, redirect
-from .models import Kurs
 import urllib.request
 import urllib.parse
 
-# Sening maxfiy kalitlaring
+# Sening maxfiy kalitlaring (Buzilmagan!)
 BOT_TOKEN = '7929964351:AAFq3qpvOcJGDkPdFpjnhm_iKBY6Qxy6tag'
 CHAT_ID = '7993416038'
 
 def home(request):
-    hamma_kurslar = Kurs.objects.all()
-    return render(request, 'index.html', {'kurslar': hamma_kurslar})
+    # Kurslar HTML da borligi uchun bazadan chaqirish shart emas
+    return render(request, 'index.html')
 
 def botga_yuborish(request, kurs_id):
     if request.method == 'POST':
         ism = request.POST.get('ism')
         tel = request.POST.get('tel')
-        kurs = Kurs.objects.get(id=kurs_id)
+        
+        # BAZADAN QIDIRMAYMIZ! ID ga qarab nomini o'zimiz biriktiramiz:
+        kurs_nomi = "Noma'lum kurs"
+        if str(kurs_id) == '1':
+            kurs_nomi = "AI & SMART BOTS"
+        elif str(kurs_id) == '2':
+            kurs_nomi = "KIBERXAVFSIZLIK PRO"
+        elif str(kurs_id) == '3':
+            kurs_nomi = "WEB: FULL-STACK"
         
         # Telegramga boradigan xabar dizayni
         matn = (
             f"🚀 **YANGI BUYURTMA!**\n\n"
             f"👤 **Mijoz:** {ism}\n"
             f"📞 **Telefon:** {tel}\n"
-            f"📚 **Kurs:** {kurs.nomi}\n\n"
+            f"📚 **Kurs:** {kurs_nomi}\n\n"
             f"✅ *Tezda bog'laning!*"
         )
         
