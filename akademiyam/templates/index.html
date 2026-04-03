@@ -51,9 +51,9 @@
         }
         .cta-button:hover { color: #0b0f19; background: #00e5ff; box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
 
-        /* Kartochkalar & Haqimda bo'limi detallari */
+        /* Kartochkalar */
         .course-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 1100px; }
-        .course-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.1); padding: 30px; border-radius: 12px; width: 320px; text-align: left; transition: 0.3s; }
+        .course-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.1); padding: 30px; border-radius: 12px; width: 100%; max-width: 320px; text-align: left; transition: 0.3s; }
         .course-card:hover { border-color: #00e5ff; transform: translateY(-5px); }
         .course-card h3 { color: #00e5ff; margin-bottom: 15px; font-size: 1.1rem; }
 
@@ -69,6 +69,15 @@
 
         .terminal-box { background: #000; border: 1px solid #00e5ff; padding: 30px; border-radius: 8px; text-align: left; font-family: monospace; color: #00e5ff; width: 100%; max-width: 700px; line-height: 1.6; }
         .live-status { position: fixed; bottom: 20px; left: 20px; background: #000; border: 1px solid #00e5ff; color: #00e5ff; padding: 8px 15px; font-family: monospace; font-size: 10px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+
+        /* MOBIL VERSIYA UCHUN (TELEFONLAR) */
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 20px; gap: 15px; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            h1 { font-size: 2.5rem; }
+            .course-card { padding: 20px; }
+            .terminal-box { padding: 20px; font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -86,7 +95,6 @@
                 <li><a onclick="openRoom('about', this)" class="nav-link">HAQIMDA</a></li>
                 <li><a onclick="openRoom('signal', this)" class="nav-link">SIGNAL</a></li>
                 <li><a href="https://t.me/bakhadirovch_dev" target="_blank" style="color: #00e5ff; border: 1px solid #00e5ff; padding: 5px 12px; border-radius: 4px; font-size: 0.7rem;">DIRECT</a></li>
-                <li><button onclick="toggleMode()" style="background:none; border:1px solid #333; color:#8b949e; cursor:pointer; padding:5px 8px; border-radius:4px; font-size: 0.6rem;">MODE</button></li>
             </ul>
         </nav>
     </header>
@@ -104,7 +112,7 @@
             <div class="course-card">
                 <h3>AI & SMART BOTS</h3>
                 <p style="font-size: 0.8rem; color: #8b949e; margin-bottom: 20px;">AI va kiber-tizimlar yaratish texnologiyasi. **7 kunlik intensiv bepul dars!**</p>
-                <form action="/sotib-olish/1/" method="POST">
+                <form action="{% url 'sotib_olish' 1 %}" method="POST">
                     {% csrf_token %}
                     <input type="text" name="ism" placeholder="Mijoz ismi" required>
                     <input type="text" name="tel" placeholder="+998" required>
@@ -115,7 +123,7 @@
             <div class="course-card">
                 <h3>KIBERXAVFSIZLIK PRO</h3>
                 <p style="font-size: 0.8rem; color: #8b949e; margin-bottom: 20px;">Ethical Hacking va tizimlar himoyasi. **7 kunlik intensiv bepul dars!**</p>
-                <form action="/sotib-olish/2/" method="POST">
+                <form action="{% url 'sotib_olish' 2 %}" method="POST">
                     {% csrf_token %}
                     <input type="text" name="ism" placeholder="Mijoz ismi" required>
                     <input type="text" name="tel" placeholder="+998" required>
@@ -126,7 +134,7 @@
             <div class="course-card">
                 <h3>WEB: FULL-STACK</h3>
                 <p style="font-size: 0.8rem; color: #8b949e; margin-bottom: 20px;">Django va Frontend sirlarini o'rganing. **7 kunlik intensiv bepul dars!**</p>
-                <form action="/sotib-olish/3/" method="POST">
+                <form action="{% url 'sotib_olish' 3 %}" method="POST">
                     {% csrf_token %}
                     <input type="text" name="ism" placeholder="Mijoz ismi" required>
                     <input type="text" name="tel" placeholder="+998" required>
@@ -186,10 +194,6 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
             document.getElementById(roomId).classList.add('active');
             if(element) element.classList.add('active-link');
-        }
-
-        function toggleMode() {
-            document.body.style.filter = document.body.style.filter === 'invert(1)' ? 'none' : 'invert(1)';
         }
 
         let up = 0;
