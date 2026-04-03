@@ -6,32 +6,61 @@
     <title>BAKHADIROVICH TECH SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* CSS O'zgaruvchilar - Ranglarni boshqarish uchun */
+        :root {
+            --bg: #0b0f19;
+            --text: #ffffff;
+            --accent: #00e5ff;
+            --accent-glow: rgba(0, 229, 255, 0.5);
+            --border: rgba(0, 229, 255, 0.15);
+            --input-bg: #000000;
+        }
+
+        /* MATRIX (Haker) Rejimi */
+        body.matrix {
+            --bg: #020a04;
+            --accent: #00ff41;
+            --accent-glow: rgba(0, 255, 65, 0.5);
+            --border: rgba(0, 255, 65, 0.15);
+            --input-bg: #010502;
+        }
+
+        /* BLOOD (Qizil) Rejimi */
+        body.blood {
+            --bg: #0d0202;
+            --accent: #ff003c;
+            --accent-glow: rgba(255, 0, 60, 0.5);
+            --border: rgba(255, 0, 60, 0.15);
+            --input-bg: #050101;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         
         body { 
-            background-color: #0b0f19; color: #ffffff; 
+            background-color: var(--bg); color: var(--text); 
             min-height: 100vh; display: flex; flex-direction: column; 
-            transition: 0.5s ease; overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden;
         }
 
         /* Navigatsiya */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 25px 60px; border-bottom: 1px solid rgba(0, 229, 255, 0.15); 
-            background: rgba(11, 15, 25, 0.95); position: sticky; top: 0; z-index: 1000;
+            padding: 25px 60px; border-bottom: 1px solid var(--border); 
+            background: var(--bg); position: sticky; top: 0; z-index: 1000;
+            transition: 0.5s ease;
         }
 
         .logo-area { display: flex; flex-direction: column; gap: 5px; }
         .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
-        .logo span { color: #00e5ff; }
-        .sys-id { font-family: monospace; font-size: 0.6rem; color: #00e5ff; opacity: 0.5; letter-spacing: 1px; }
+        .logo span { color: var(--accent); transition: 0.5s; }
+        .sys-id { font-family: monospace; font-size: 0.6rem; color: var(--accent); opacity: 0.5; letter-spacing: 1px; transition: 0.5s; }
 
         nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
         nav ul li a { 
             text-decoration: none; color: #8b949e; font-size: 0.75rem; 
             font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; 
         }
-        nav ul li a:hover, .active-link { color: #00e5ff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
+        nav ul li a:hover, .active-link { color: var(--accent) !important; text-shadow: 0 0 10px var(--accent-glow); }
 
         /* Sahifalar */
         .page { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; flex-grow: 1; animation: fadeIn 0.5s ease; }
@@ -39,36 +68,36 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 15px; letter-spacing: -2px; }
-        .highlight { color: #00e5ff; }
+        .highlight { color: var(--accent); transition: 0.5s; }
         .slogan { color: #8b949e; font-size: 0.85rem; font-weight: 200; max-width: 600px; margin-bottom: 40px; line-height: 1.6; letter-spacing: 4px; text-transform: uppercase; }
 
         /* Tugmalar */
         .cta-button { 
-            position: relative; padding: 14px 40px; background: transparent; color: #00e5ff; 
-            border: 1px solid #00e5ff; font-weight: 700; border-radius: 4px; cursor: pointer; 
+            position: relative; padding: 14px 40px; background: transparent; color: var(--accent); 
+            border: 1px solid var(--accent); font-weight: 700; border-radius: 4px; cursor: pointer; 
             text-decoration: none; font-size: 0.8rem; text-transform: uppercase; 
             overflow: hidden; transition: 0.4s; z-index: 1;
         }
-        .cta-button:hover { color: #0b0f19; background: #00e5ff; box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
+        .cta-button:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 30px var(--accent-glow); }
 
         /* Kartochkalar */
         .course-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 1100px; }
-        .course-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 229, 255, 0.1); padding: 30px; border-radius: 12px; width: 100%; max-width: 320px; text-align: left; transition: 0.3s; }
-        .course-card:hover { border-color: #00e5ff; transform: translateY(-5px); }
-        .course-card h3 { color: #00e5ff; margin-bottom: 15px; font-size: 1.1rem; }
+        .course-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 30px; border-radius: 12px; width: 100%; max-width: 320px; text-align: left; transition: 0.3s; }
+        .course-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .course-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; transition: 0.5s; }
 
         /* Form dizayni */
-        input { width: 100%; padding: 12px; margin-bottom: 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; color: #fff; font-size: 0.8rem; }
-        input:focus { border-color: #00e5ff; outline: none; }
+        input { width: 100%; padding: 12px; margin-bottom: 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background: var(--input-bg); color: #fff; font-size: 0.8rem; transition: 0.5s; }
+        input:focus { border-color: var(--accent); outline: none; }
 
         /* Skill progress bars */
         .skill-bar-container { width: 100%; margin: 10px 0; text-align: left; }
         .skill-name { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; display: flex; justify-content: space-between; }
         .skill-line { width: 100%; height: 4px; background: rgba(255,255,255,0.05); margin-top: 5px; border-radius: 2px; position: relative; overflow: hidden; }
-        .skill-progress { height: 100%; background: #00e5ff; box-shadow: 0 0 10px #00e5ff; border-radius: 2px; transition: 1s ease-out; }
+        .skill-progress { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); border-radius: 2px; transition: background 0.5s, box-shadow 0.5s; }
 
-        .terminal-box { background: #000; border: 1px solid #00e5ff; padding: 30px; border-radius: 8px; text-align: left; font-family: monospace; color: #00e5ff; width: 100%; max-width: 700px; line-height: 1.6; }
-        .live-status { position: fixed; bottom: 20px; left: 20px; background: #000; border: 1px solid #00e5ff; color: #00e5ff; padding: 8px 15px; font-family: monospace; font-size: 10px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+        .terminal-box { background: var(--bg); border: 1px solid var(--accent); padding: 30px; border-radius: 8px; text-align: left; font-family: monospace; color: var(--accent); width: 100%; max-width: 700px; line-height: 1.6; transition: 0.5s; }
+        .live-status { position: fixed; bottom: 20px; left: 20px; background: var(--bg); border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; font-family: monospace; font-size: 10px; border-radius: 4px; box-shadow: 0 0 10px var(--accent-glow); transition: 0.5s; }
 
         /* MOBIL VERSIYA UCHUN (TELEFONLAR) */
         @media (max-width: 768px) {
@@ -94,7 +123,8 @@
                 <li><a onclick="openRoom('matrix', this)" class="nav-link">MATRIX</a></li>
                 <li><a onclick="openRoom('about', this)" class="nav-link">HAQIMDA</a></li>
                 <li><a onclick="openRoom('signal', this)" class="nav-link">SIGNAL</a></li>
-                <li><a href="https://t.me/bakhadirovch_dev" target="_blank" style="color: #00e5ff; border: 1px solid #00e5ff; padding: 5px 12px; border-radius: 4px; font-size: 0.7rem;">DIRECT</a></li>
+                <li><a href="https://t.me/bakhadirovch_dev" target="_blank" style="color: var(--accent); border: 1px solid var(--accent); padding: 5px 12px; border-radius: 4px; font-size: 0.7rem; transition: 0.5s;">DIRECT</a></li>
+                <li><button onclick="toggleMode(event)" style="background:none; border:1px solid #333; color:#8b949e; cursor:pointer; padding:5px 8px; border-radius:4px; font-size: 0.6rem;">MODE: CYBER</button></li>
             </ul>
         </nav>
     </header>
@@ -148,7 +178,7 @@
     <main id="about" class="page">
         <h2 style="font-size: 2.5rem; margin-bottom: 30px;">HAQIMDA <span class="highlight">IDENTIFIKATSIYA</span></h2>
         <div class="terminal-box">
-            <p style="color: #00e5ff; border-bottom: 1px solid rgba(0,229,255,0.2); padding-bottom: 10px; margin-bottom: 15px;">IDENT-LOG: OTABEK (BAKHADIROVICH)</p>
+            <p style="color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;">IDENT-LOG: OTABEK (BAKHADIROVICH)</p>
             <p>> <span style="color: #8b949e;">LOKATSIYA:</span> Yunusobod, Toshkent</p>
             <p>> <span style="color: #8b949e;">STATUS:</span> Toshkent Axborot Texnologiyalari Universiteti (TUIT) talabasi</p>
             <p>> <span style="color: #8b949e;">FAKULTET:</span> Kiberxavfsizlik, 736-25 guruh</p>
@@ -157,7 +187,7 @@
             <p style="margin-top: 15px; line-height: 1.4;">Men shunchaki kod yozmayman, men kelajak kiber-tizimlarini yarataman. Maqsadim — raqamli dunyo xavfsizligini ta'minlash va AI orqali IT ta'limini "God Mode" darajasiga olib chiqish.</p>
             
             <div style="margin-top: 20px;">
-                <p style="font-size: 0.7rem; color: #00e5ff;">TECH-SKILLS STACK:</p>
+                <p style="font-size: 0.7rem; color: var(--accent);">TECH-SKILLS STACK:</p>
                 <div class="skill-bar-container">
                     <div class="skill-name"><span>Python / Django / AI</span><span>95%</span></div>
                     <div class="skill-line"><div class="skill-progress" style="width: 95%;"></div></div>
@@ -194,6 +224,17 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
             document.getElementById(roomId).classList.add('active');
             if(element) element.classList.add('active-link');
+        }
+
+        // 3 TA REJIM UCHUN KOD
+        let modeIndex = 0;
+        const modeClasses = ['', 'matrix', 'blood'];
+        const modeNames = ['MODE: CYBER', 'MODE: MATRIX', 'MODE: BLOOD'];
+
+        function toggleMode(event) {
+            modeIndex = (modeIndex + 1) % 3; // 0, 1, 2 bo'lib aylanadi
+            document.body.className = modeClasses[modeIndex]; // Fonni o'zgartiradi
+            event.target.innerText = modeNames[modeIndex]; // Tugma yozuvini o'zgartiradi
         }
 
         let up = 0;
